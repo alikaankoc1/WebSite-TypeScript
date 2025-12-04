@@ -1,0 +1,12 @@
+export { Navbar } from './Navbar';
+export { Hero } from './Hero';
+export { Stats } from './Stats';
+export { About } from './About';
+export { Experiences } from './Experiences';
+export { Experience } from './Experience';
+export { Certificates } from './Certificates';
+export { Projects } from './Projects';
+export { Blog } from './Blog';
+export { Contact } from './Contact';
+export { CTA } from './CTA';
+export { Footer } from './Footer';

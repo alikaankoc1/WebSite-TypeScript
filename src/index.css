@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Global site background color (matching provided sample) */
+html, body, #root {
+  /* allow changing opacity via --tw-bg-opacity (Tailwind-style variable) */
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity, 1));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg transform hover:scale-105 transition-all duration-300;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold border border-gray-600 text-gray-300 hover:border-gray-400 hover:text-gray-200 transition-all duration-300 dark:hover:bg-dark-tertiary;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white dark:bg-dark-tertiary p-6 hover:shadow-lg transition-all duration-300;
+  }
+
+  .social-icon {
+    @apply w-12 h-12 rounded-xl bg-gray-800 dark:bg-dark-tertiary flex items-center justify-center hover:bg-primary transition-colors duration-300 cursor-pointer;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
