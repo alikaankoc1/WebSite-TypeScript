@@ -335,7 +335,7 @@ const allTranslations = {
           category: 'Full Stack',
           github: 'https://github.com/alikaankoc1/e-ticaret-app',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/forma.png"  
+          image: "/forma.png"  
 
         },
         {
@@ -345,7 +345,7 @@ const allTranslations = {
           category: 'Web',
           github: 'https://github.com/alikaankoc1/bookify',
           link: 'https://github.com/alikaankoc1',
-           image: "/public/kütüphane.png" 
+           image: "/kütüphane.png" 
         },
         {
           id: 3,
@@ -354,7 +354,7 @@ const allTranslations = {
           category: 'Mobile',
           github: 'https://github.com/alikaankoc1/weather-app',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/weather.png" 
+          image: "/weather.png" 
         },
         {
           id: 4,
@@ -363,7 +363,7 @@ const allTranslations = {
           category: 'Mobile',
           github: 'https://github.com/alikaankoc1/memory-card-game',
           link: 'https://alikaankoc1.github.io/gamememorycard.github.io/',
-          image: "/public/card.png" 
+          image: "/card.png" 
         },
          {
           id: 5,
@@ -372,7 +372,7 @@ const allTranslations = {
           category: 'Full Stack',
           github: 'https://github.com/alikaankoc1/Ehliyet-Quiz',
           link: 'https://alikaankoc1.github.io/quiz.app/',
-           image: "/public/ehliyet.png"  
+           image: "/ehliyet.png"  
         },
          {
           id: 6,
@@ -381,7 +381,7 @@ const allTranslations = {
           category: 'Backend',
           github: 'https://github.com/alikaankoc1/todo-list-react',
           link: 'https://github.com/alikaankoc1',
-           image: "/public/todo.png"
+           image: "/todo.png"
         },
       ],
     },
@@ -637,7 +637,7 @@ const allTranslations = {
           category: 'Full Stack',
           github: 'https://github.com/alikaankoc1/e-ticaret-app',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/forma.png" 
+          image: "/forma.png" 
         },
         {
           id: 2,
@@ -646,7 +646,7 @@ const allTranslations = {
           category: 'Web',
           github: 'https://github.com/alikaankoc1/bookify',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/kütüphane.png" 
+          image: "/kütüphane.png" 
         },
         {
           id: 3,
@@ -655,7 +655,7 @@ const allTranslations = {
           category: 'Mobile',
           github: 'https://github.com/alikaankoc1/weather-app',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/weather.png" 
+          image: "/weather.png" 
         },
         {
           id: 4,
@@ -664,7 +664,7 @@ const allTranslations = {
           category: 'Mobile',
           github: 'https://github.com/alikaankoc1/memory-card-game',
           link: 'https://alikaankoc1.github.io/gamememorycard.github.io/',
-          image: "/public/card.png" 
+          image: "/card.png" 
         },
           {
           id: 5,
@@ -673,7 +673,7 @@ const allTranslations = {
           category: 'Full Stack',
           github: 'https://github.com/alikaankoc1/Ehliyet-Quiz',
           link: 'https://alikaankoc1.github.io/quiz.app/',
-          image: "/public/ehliyet.png" 
+          image: "/ehliyet.png" 
         },
           {
           id: 6,
@@ -682,7 +682,7 @@ const allTranslations = {
           category: 'Backend',
           github: 'https://github.com/alikaankoc1/todo-list-react',
           link: 'https://github.com/alikaankoc1',
-          image: "/public/todo.png" 
+          image: "/todo.png" 
         },
       ],
     },
