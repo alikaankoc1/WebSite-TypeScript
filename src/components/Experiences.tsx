@@ -41,13 +41,13 @@ export function Experiences({ isDark }: ExperiencesProps) {
                   <h3 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {exp.title} {/* DİNAMİK METİN */}
                   </h3>
-                  <a
-                    href=""
+                  <span
+                    
                     
                     className="text-blue-500 hover:text-blue-600 font-semibold transition-colors"
                   >
                     {exp.company} {/* DİNAMİK METİN */}
-                  </a>
+                  </span>
                 </div>
                 <div className={`flex items-center gap-2 whitespace-nowrap ${
                   isDark ? 'text-gray-400' : 'text-gray-600'
