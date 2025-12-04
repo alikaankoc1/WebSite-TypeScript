@@ -16,7 +16,7 @@ export function Contact({ isDark }: ContactProps) {
     message: '',
   });
 
-  // GÜNCELLEME 1: Gönderim durumunu yönetmek için yeni state
+  
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,27 +27,35 @@ export function Contact({ isDark }: ContactProps) {
     }));
   };
 
-  // GÜNCELLEME 2: Node.js sunucusuna POST isteği gönderecek asenkron fonksiyon
-  const handleSubmit = async (e: React.FormEvent) => {
+  
+  const encode = (data: { [key: string]: string }) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+  }
+
+  
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (status === 'loading') return; // Zaten gönderiliyorsa tekrar denemeyi engelle
+    if (status === 'loading') return; 
 
-    setStatus('loading'); // Durumu "yükleniyor" olarak ayarla
+    setStatus('loading'); 
 
-    // Node.js sunucumuzun çalıştığı adresi kullanın
-    const apiUrl = 'http://localhost:3001/api/gonder'; 
+    
+    const formName = "contact";
 
     try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch("/", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
+            headers: { 
+                'Content-Type': 'application/x-www-form-urlencoded' 
             },
-            body: JSON.stringify(formData), // Verileri JSON olarak gönder
+            body: encode({ 
+                "form-name": formName, 
+                ...formData 
+            }), 
         });
-
-        const data = await response.json();
 
         if (response.ok) {
             setStatus('success'); // Başarılı oldu
@@ -55,17 +63,16 @@ export function Contact({ isDark }: ContactProps) {
             setFormData({ name: '', email: '', subject: '', message: '' }); 
         } else {
             setStatus('error'); // Hata oluştu
-            console.error('API Hatası:', data.message);
-            alert(data.message || 'Mesaj gönderilemedi: Sunucu tarafında bir hata oluştu.');
+            console.error('Netlify Form Hatası:', response.statusText);
+            alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.');
         }
     } catch (error) {
         setStatus('error'); // Ağ veya bağlantı hatası
         console.error('Ağ Hatası:', error);
-        alert('Sunucuya bağlanılamadı (http://localhost:3001). Lütfen Node.js sunucusunun çalıştığından emin olun.');
+        alert('Mesaj gönderilemedi: Lütfen internet bağlantınızı kontrol edin.');
     }
     
     // Başarı/Hata mesajı bir süre göründükten sonra durumu sıfırla
-    // Hata durumunda kullanıcıya tekrar deneme şansı vermek için reset yapmıyoruz
     if (status === 'success') { 
         setTimeout(() => {
             setStatus('idle');
@@ -73,7 +80,7 @@ export function Contact({ isDark }: ContactProps) {
     }
   };
   
-  // GÜNCELLEME 3: Buton metnini duruma göre ayarlayan yardımcı fonksiyon
+  
   const getButtonText = () => {
     if (status === 'loading') return 'Gönderiliyor...';
     if (status === 'success') return 'Mesaj İletildi! ✅';
@@ -82,6 +89,7 @@ export function Contact({ isDark }: ContactProps) {
   };
 
   const contactInfo = [
+    
     {
       icon: <Mail size={24} />,
       title: contactContent.emailLabel,
@@ -102,7 +110,7 @@ export function Contact({ isDark }: ContactProps) {
     },
     {
       icon: <GraduationCap size={24} />,
-      // Hakkımda kısmından eğitim başlığını aldık
+     
       title: aboutContent.educationTitle, 
       value: aboutContent.educationUniversity,
       link: '/hakkimda',
@@ -185,7 +193,24 @@ export function Contact({ isDark }: ContactProps) {
                 {contactContent.formTitle}
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              {/* GÜNCELLENMİŞ FORM ETİKETİ */}
+              <form 
+                  name="contact" 
+                  data-netlify="true" 
+                  data-netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit} 
+                  className="space-y-4 md:space-y-6"
+              >
+                {/* Netlify Hidden Field (zorunludur) */}
+                <input type="hidden" name="form-name" value="contact" />
+                
+                {/* Honeypot field (spam koruması için gizli alan) */}
+                <p className="hidden">
+                    <label>
+                        Don’t fill this out if you’re human: <input name="bot-field" onChange={handleChange} />
+                    </label>
+                </p>
+
                 {/* Name and Email Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div>
@@ -285,17 +310,17 @@ export function Contact({ isDark }: ContactProps) {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={status === 'loading'} // GÜNCELLEME: Yüklenirken butonu devre dışı bırak
+                  disabled={status === 'loading'} 
                   className={`w-full py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
-                    status === 'success' // Başarılı durumda yeşil
+                    status === 'success' 
                       ? 'bg-green-500 text-white hover:shadow-lg hover:-translate-y-1'
-                      : status === 'error' // Hata durumunda kırmızı
+                      : status === 'error' 
                       ? 'bg-red-500 text-white hover:shadow-lg hover:-translate-y-1'
                       : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:-translate-y-1'
                   }`}
                 >
                   <Send size={18} />
-                  {/* GÜNCELLEME: Dinamik Buton Metni */}
+                  {/* Dinamik Buton Metni */}
                   {getButtonText()} 
                 </button>
               </form>
