@@ -484,7 +484,7 @@ const allTranslations = {
           title: 'Eğitim',
           description: 'Kütahya Dumlupınar Üniversitesi - Bilgisayar Mühendisliği',
           details: '4. Sınıf',
-
+          
         },
         {
           iconType: 'Code2',
@@ -729,7 +729,7 @@ const allTranslations = {
                 iconType: 'GraduationCap',
                 title: 'University',
                 value: 'DPU Computer Engineering',
-                link: '/about',
+                link: '#',
             },
             {
                 iconType: 'MapPin',

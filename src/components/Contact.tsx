@@ -1,13 +1,28 @@
 import { useState } from 'react';
-import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone } from 'lucide-react';
+import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone, Icon } from 'lucide-react';
 import { useLanguage } from './LanguageContext'; 
+
+// LanguageContext.tsx'deki string tipinden Lucide-React bileşenine dönüşümü sağlayan fonksiyon
+// (Bu, 'Eğitim' kısmının linkini değiştirdiğimizde Contact.tsx'te ihtiyaç duyduğumuz değişikliktir.)
+const getIconComponent = (iconType: string): Icon => {
+    switch (iconType) {
+        case 'Mail': return Mail;
+        case 'Github': return Github;
+        case 'Linkedin': return Linkedin;
+        case 'MapPin': return MapPin;
+        case 'GraduationCap': return GraduationCap;
+        case 'Phone': return Phone;
+        default: return Mail; // Varsayılan bir ikon
+    }
+};
 
 interface ContactProps {
   isDark: boolean;
 }
 
 export function Contact({ isDark }: ContactProps) {
-  const { contactContent, aboutContent } = useLanguage(); 
+  // Context'ten gerekli içerikleri çekiyoruz
+  const { contactContent } = useLanguage(); 
     
   const [formData, setFormData] = useState({
     name: '',
@@ -87,47 +102,11 @@ export function Contact({ isDark }: ContactProps) {
     if (status === 'error') return 'Tekrar Dene ❌';
     return contactContent.submitButton;
   };
-
-  const contactInfo = [
-    
-    {
-      icon: <Mail size={24} />,
-      title: contactContent.emailLabel,
-      value: 'alikaansoftdev@gmail.com',
-      link: 'mailto:alikaansoftdev@gmail.com',
-    },
-    {
-      icon: <Github size={24} />,
-      title: 'GitHub',
-      value: 'github.com/alikaankoc1',
-      link: 'https://github.com/alikaankoc1',
-    },
-    {
-      icon: <Linkedin size={24} />,
-      title: 'LinkedIn',
-      value: 'linkedin.com/in/alikaankoc',
-      link: 'https://linkedin.com/in/alikaankoc',
-    },
-    {
-      icon: <GraduationCap size={24} />,
-     
-      title: aboutContent.educationTitle, 
-      value: aboutContent.educationUniversity,
-      link: '/hakkimda',
-    },
-    {
-      icon: <MapPin size={24} />,
-      title: contactContent.infoLocation,
-      value: contactContent.address,
-      link: '#',
-    },
-    {
-      icon: <Phone size={24} />,
-      title: 'Telefon', 
-      value: contactContent.phone,
-      link: `tel:${contactContent.phone}`,
-    },
-  ];
+  
+  // Önceki Contact.tsx dosyanızdaki statik 'contactInfo' dizisi, 
+  // artık LanguageContext.tsx'ten çekilen 'contactContent.contactInfo' 
+  // kullanıldığı için burada tutulmayacaktır.
+  // Bu sayede link ve ikon tipleri dinamik olarak yönetilir.
 
   return (
     <section className={`${isDark ? 'bg-dark' : 'bg-white'} py-20`}>
@@ -151,10 +130,16 @@ export function Contact({ isDark }: ContactProps) {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="space-y-4">
-              {contactInfo.map((info, index) => (
+              {/* contactContent.contactInfo üzerinden döngü yapılıyor */}
+              {contactContent.contactInfo.map((info, index) => {
+                // Dinamik İkon Bileşenini alıyoruz
+                const IconComponent = getIconComponent(info.iconType); 
+                
+                return (
                 <a
                   key={index}
                   href={info.link}
+                  // Harici link ise _blank, dahili ise _self (ya da # için _self)
                   target={info.link.startsWith('http') ? '_blank' : '_self'}
                   rel="noopener noreferrer"
                   className={`flex items-start gap-4 p-4 rounded-xl border transition-all hover:shadow-lg ${
@@ -166,7 +151,8 @@ export function Contact({ isDark }: ContactProps) {
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                     isDark ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100 text-blue-600'
                   }`}>
-                    {info.icon}
+                    {/* Dinamik İkon Bileşenini render ediyoruz */}
+                    <IconComponent size={24} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className={`font-semibold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -177,7 +163,7 @@ export function Contact({ isDark }: ContactProps) {
                     </p>
                   </div>
                 </a>
-              ))}
+              )})}
             </div>
           </div>
 
