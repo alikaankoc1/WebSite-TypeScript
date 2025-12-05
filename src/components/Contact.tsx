@@ -1,9 +1,11 @@
+// Contact.tsx (Baştan Sona Eksiksiz Kod)
+
 import { useState } from 'react';
-import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone, Icon } from 'lucide-react';
+// Icon'u içeri aktarmayı unutmayın!
+import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone, Icon } from 'lucide-react'; 
 import { useLanguage } from './LanguageContext'; 
 
-// LanguageContext.tsx'deki string tipinden Lucide-React bileşenine dönüşümü sağlayan fonksiyon
-// (Bu, 'Eğitim' kısmının linkini değiştirdiğimizde Contact.tsx'te ihtiyaç duyduğumuz değişikliktir.)
+// İkon Eşleme Fonksiyonu
 const getIconComponent = (iconType: string): Icon => {
     switch (iconType) {
         case 'Mail': return Mail;
@@ -21,7 +23,7 @@ interface ContactProps {
 }
 
 export function Contact({ isDark }: ContactProps) {
-  // Context'ten gerekli içerikleri çekiyoruz
+  // Artık sadece contactContent kullanılıyor
   const { contactContent } = useLanguage(); 
     
   const [formData, setFormData] = useState({
@@ -103,10 +105,7 @@ export function Contact({ isDark }: ContactProps) {
     return contactContent.submitButton;
   };
   
-  // Önceki Contact.tsx dosyanızdaki statik 'contactInfo' dizisi, 
-  // artık LanguageContext.tsx'ten çekilen 'contactContent.contactInfo' 
-  // kullanıldığı için burada tutulmayacaktır.
-  // Bu sayede link ve ikon tipleri dinamik olarak yönetilir.
+  // ÖNCEKİ contactInfo DİZİSİ BURADAN KALDIRILDI!
 
   return (
     <section className={`${isDark ? 'bg-dark' : 'bg-white'} py-20`}>
@@ -138,7 +137,7 @@ export function Contact({ isDark }: ContactProps) {
                 return (
                 <a
                   key={index}
-                  href={info.link}
+                  href={info.link} // Context'ten gelen linki kullanır
                   // Harici link ise _blank, dahili ise _self (ya da # için _self)
                   target={info.link.startsWith('http') ? '_blank' : '_self'}
                   rel="noopener noreferrer"
