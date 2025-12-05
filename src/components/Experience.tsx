@@ -12,10 +12,7 @@ interface ExperienceCardProps {
 function ExperienceCard({ isDark, icon, title, description, details }: ExperienceCardProps) {
   return (
     <div className={`relative group rounded-3xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl ${isDark ? '' : ''}`}>
-      {/* thin gradient bar at the very top that appears on hover */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-      {/* Make every card the same height so the 'Eğitim' card won't be taller than the others */}
       <div className={`p-6 md:p-8 h-64 md:h-72 flex flex-col justify-between ${isDark ? 'bg-dark-tertiary' : 'bg-white'} border ${isDark ? 'border-dark-tertiary' : 'border-gray-200'} rounded-2xl`}>
         <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 ${isDark ? 'bg-blue-500/20' : 'bg-gradient-to-br from-blue-500 to-purple-600 text-white'}`}>
           <div className={isDark ? 'text-blue-400' : 'text-white'}>
@@ -56,7 +53,6 @@ interface ExperienceProps {
 }
 
 export function Experience({ isDark }: ExperienceProps) {
-  // Context'ten dinamik kart verilerini çekiyoruz
   const { experienceCardsContent } = useLanguage();
   const experiences = experienceCardsContent.cards;
 

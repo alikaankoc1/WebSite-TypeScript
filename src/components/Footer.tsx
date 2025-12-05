@@ -2,7 +2,7 @@
 
 import { Github, Linkedin, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../components/LanguageContext'; // Dosya yolunuza göre ayarlayın (genellikle doğru)
+import { useLanguage } from '../components/LanguageContext'; 
 
 export function Footer({ isDark }: { isDark: boolean }) {
   const { navContent, footerContent } = useLanguage(); 
@@ -31,7 +31,6 @@ export function Footer({ isDark }: { isDark: boolean }) {
 
           {/* Quick Links */}
           <div>
-            {/* DİNAMİK METİN: Hızlı Bağlantılar Başlığı */}
             <h4 className={`font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-100'}`}>
               {footerContent.quickLinks} 
             </h4>

@@ -8,9 +8,6 @@ interface ContactProps {
 
 export function Contact({ isDark }: ContactProps) {
   const { contactContent, aboutContent } = useLanguage(); 
-    
-  // Statik form-name'i state'ten kaldırmak daha temizdir,
-  // çünkü bu değer JSX'teki gizli input ile gönderilmelidir.
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,9 +25,6 @@ export function Contact({ isDark }: ContactProps) {
       [name]: value,
     }));
   };
-
-  
-  // Netlify'a göndermek için URL-encoded formata çevirme fonksiyonu
   const encode = (data: { [key: string]: string }) => {
     return Object.keys(data)
       .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -44,11 +38,7 @@ export function Contact({ isDark }: ContactProps) {
     if (status === 'loading') return; 
 
     setStatus('loading'); 
-    
-    // Netlify form adı (index.html'deki form name ile eşleşmeli)
     const formName = "contact";
-
-    // Form verilerini gizli form-name alanı ile birleştirme
     const dataToSend = {
       "form-name": formName, 
       ...formData 
@@ -60,7 +50,7 @@ export function Contact({ isDark }: ContactProps) {
             headers: { 
                 'Content-Type': 'application/x-www-form-urlencoded' 
             },
-            body: encode(dataToSend), // GÜNCELLENDİ: dataToSend gönderiliyor
+            body: encode(dataToSend), 
         });
 
         if (response.ok) {
@@ -70,7 +60,6 @@ export function Contact({ isDark }: ContactProps) {
         } else {
             setStatus('error');
             console.error('Netlify Form Hatası:', response.statusText);
-            // Hata mesajını daha anlaşılır bıraktık
             alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.'); 
         }
     } catch (error) {
@@ -78,8 +67,6 @@ export function Contact({ isDark }: ContactProps) {
         console.error('Ağ Hatası:', error);
         alert('Mesaj gönderilemedi: Lütfen internet bağlantınızı kontrol edin.');
     }
-    
-    // Başarı/Hata mesajı bir süre göründükten sonra durumu sıfırla
     if (status === 'success') { 
         setTimeout(() => {
             setStatus('idle');
@@ -120,7 +107,6 @@ export function Contact({ isDark }: ContactProps) {
      
       title: aboutContent.educationTitle, 
       value: aboutContent.educationUniversity,
-      // DÜZELTİLDİ: 404 Hatasını önlemek için link '#' yapıldı.
       link: '#', 
     },
     {
@@ -201,18 +187,16 @@ export function Contact({ isDark }: ContactProps) {
                 {contactContent.formTitle}
               </h3>
 
-              {/* GÜNCELLENMİŞ FORM ETİKETİ */}
+              {/* FORM ETİKETİ */}
               <form 
-                  name="contact" // Bu isim index.html'deki ile eşleşmeli
+                  name="contact"
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field"
                   onSubmit={handleSubmit} 
                   className="space-y-4 md:space-y-6"
               >
-                {/* KRİTİK: Netlify'ın formu tanıması için hidden form-name alanı */}
-                <input type="hidden" name="form-name" value="contact" />
                 
-                {/* Honeypot field (spam koruması için gizli alan) */}
+                <input type="hidden" name="form-name" value="contact" />
                 <p className="hidden">
                     <label>
                         Don’t fill this out if you’re human: <input name="bot-field" onChange={handleChange} />
@@ -230,7 +214,7 @@ export function Contact({ isDark }: ContactProps) {
                     </label>
                     <input
                       type="text"
-                      name="name" // KRİTİK: FormData state'i ve index.html ile eşleşmeli
+                      name="name" 
                       value={formData.name}
                       onChange={handleChange}
                       // Dinamik Placeholder
@@ -252,7 +236,7 @@ export function Contact({ isDark }: ContactProps) {
                     </label>
                     <input
                       type="email"
-                      name="email" // KRİTİK
+                      name="email" 
                       value={formData.email}
                       onChange={handleChange}
                       // Dinamik Placeholder
@@ -277,7 +261,7 @@ export function Contact({ isDark }: ContactProps) {
                   </label>
                   <input
                     type="text"
-                    name="subject" // KRİTİK
+                    name="subject" 
                     value={formData.subject}
                     onChange={handleChange}
                     // Dinamik Placeholder

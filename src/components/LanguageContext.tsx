@@ -778,7 +778,6 @@ const allTranslations = {
         },
       ],
     },
-    // **YENİ EKLENEN EXPERIENCE CARD VERİSİ EN**
     experienceCardsContent: {
       cards: [
         {
@@ -810,10 +809,9 @@ const allTranslations = {
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, setLanguage] = useState<Language>('tr'); 
 
-  // Tip Hatasını Çözen Kritik Satır: currentContent'in allTranslations.tr tipinde olduğunu belirtir.
+
   const currentContent = allTranslations[language] as typeof allTranslations.tr;
-  
-  // Tüm çeviri içerikleri buradan alınıyor
+
   const navContent = currentContent.navContent;
   const heroContent = currentContent.heroContent;
   const footerContent = currentContent.footerContent;
@@ -824,9 +822,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const ctaContent = currentContent.ctaContent;
   const projectsContent = currentContent.projectsContent;
   const contactContent = currentContent.contactContent; 
-  // BlogContent'i çözmek için (any) kullanıldı
   const blogContent = (currentContent as any).blogContent; 
-  // Yeni eklenen Experience Card içeriği
   const experienceCardsContent = (currentContent as any).experienceCardsContent; 
 
   return (
@@ -845,7 +841,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
         projectsContent,
         contactContent,
         blogContent,
-        experienceCardsContent // <-- Context'e eklendi
+        experienceCardsContent 
       }}
     > 
       {children}

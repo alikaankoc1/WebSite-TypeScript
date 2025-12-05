@@ -9,14 +9,13 @@ interface CertificatesProps {
 }
 
 export function Certificates({ isDark }: CertificatesProps) {
-  // Context'ten dinamik içerik
   const { certificatesContent } = useLanguage();
   const { sectionTitle, certificates, cvDownloadButton } = certificatesContent;
 
   // CV indirme fonksiyonu
   const handleDownloadCV = useCallback(() => {
     const link = document.createElement("a");
-    link.href = "/Ali_Kaan_Koc_Computer_Engineer.pdf"; // public içindeki dosya
+    link.href = "/Ali_Kaan_Koc_Computer_Engineer.pdf"; 
     link.download = "Ali_Kaan_Koc_Computer_Engineer.pdf";
     link.click();
   }, []);

@@ -51,7 +51,6 @@ export function Blog({ isDark }: BlogProps) {
                           alt={post.title}
                           className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                         />
-                        {/* subtle overlay to keep text-readable and add polish */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
                       </>
                     ) : (
@@ -76,7 +75,6 @@ export function Blog({ isDark }: BlogProps) {
                           isDark ? 'text-gray-500' : 'text-gray-500'
                         }`}>
                           <Calendar size={14} />
-                          {/* Tarihi dinamik olarak dile göre formatlıyoruz */}
                           {new Date(post.date).toLocaleDateString(locale, {
                             year: 'numeric',
                             month: 'long',
