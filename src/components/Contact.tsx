@@ -31,6 +31,7 @@ export function Contact({ isDark }: ContactProps) {
     email: '',
     subject: '',
     message: '',
+    "form-name": "contact",
   });
 
   
