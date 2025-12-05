@@ -1,37 +1,21 @@
-// Contact.tsx (Baştan Sona Eksiksiz Kod)
-
 import { useState } from 'react';
-// Icon'u içeri aktarmayı unutmayın!
-import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone, Icon } from 'lucide-react'; 
+import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone } from 'lucide-react';
 import { useLanguage } from './LanguageContext'; 
-
-// İkon Eşleme Fonksiyonu
-const getIconComponent = (iconType: string): Icon => {
-    switch (iconType) {
-        case 'Mail': return Mail;
-        case 'Github': return Github;
-        case 'Linkedin': return Linkedin;
-        case 'MapPin': return MapPin;
-        case 'GraduationCap': return GraduationCap;
-        case 'Phone': return Phone;
-        default: return Mail; // Varsayılan bir ikon
-    }
-};
 
 interface ContactProps {
   isDark: boolean;
 }
 
 export function Contact({ isDark }: ContactProps) {
-  // Artık sadece contactContent kullanılıyor
-  const { contactContent } = useLanguage(); 
+  const { contactContent, aboutContent } = useLanguage(); 
     
+  // Statik form-name'i state'ten kaldırmak daha temizdir,
+  // çünkü bu değer JSX'teki gizli input ile gönderilmelidir.
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
-    "form-name": "contact",
   });
 
   
@@ -46,6 +30,7 @@ export function Contact({ isDark }: ContactProps) {
   };
 
   
+  // Netlify'a göndermek için URL-encoded formata çevirme fonksiyonu
   const encode = (data: { [key: string]: string }) => {
     return Object.keys(data)
       .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
@@ -59,9 +44,15 @@ export function Contact({ isDark }: ContactProps) {
     if (status === 'loading') return; 
 
     setStatus('loading'); 
-
     
+    // Netlify form adı (index.html'deki form name ile eşleşmeli)
     const formName = "contact";
+
+    // Form verilerini gizli form-name alanı ile birleştirme
+    const dataToSend = {
+      "form-name": formName, 
+      ...formData 
+    };
 
     try {
         const response = await fetch("/", {
@@ -69,23 +60,21 @@ export function Contact({ isDark }: ContactProps) {
             headers: { 
                 'Content-Type': 'application/x-www-form-urlencoded' 
             },
-            body: encode({ 
-                "form-name": formName, 
-                ...formData 
-            }), 
+            body: encode(dataToSend), // GÜNCELLENDİ: dataToSend gönderiliyor
         });
 
         if (response.ok) {
-            setStatus('success'); // Başarılı oldu
+            setStatus('success');
             // Formu temizle
             setFormData({ name: '', email: '', subject: '', message: '' }); 
         } else {
-            setStatus('error'); // Hata oluştu
+            setStatus('error');
             console.error('Netlify Form Hatası:', response.statusText);
-            alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.');
+            // Hata mesajını daha anlaşılır bıraktık
+            alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.'); 
         }
     } catch (error) {
-        setStatus('error'); // Ağ veya bağlantı hatası
+        setStatus('error');
         console.error('Ağ Hatası:', error);
         alert('Mesaj gönderilemedi: Lütfen internet bağlantınızı kontrol edin.');
     }
@@ -105,8 +94,48 @@ export function Contact({ isDark }: ContactProps) {
     if (status === 'error') return 'Tekrar Dene ❌';
     return contactContent.submitButton;
   };
-  
-  // ÖNCEKİ contactInfo DİZİSİ BURADAN KALDIRILDI!
+
+  const contactInfo = [
+    
+    {
+      icon: <Mail size={24} />,
+      title: contactContent.emailLabel,
+      value: 'alikaansoftdev@gmail.com',
+      link: 'mailto:alikaansoftdev@gmail.com',
+    },
+    {
+      icon: <Github size={24} />,
+      title: 'GitHub',
+      value: 'github.com/alikaankoc1',
+      link: 'https://github.com/alikaankoc1',
+    },
+    {
+      icon: <Linkedin size={24} />,
+      title: 'LinkedIn',
+      value: 'linkedin.com/in/alikaankoc',
+      link: 'https://linkedin.com/in/alikaankoc',
+    },
+    {
+      icon: <GraduationCap size={24} />,
+     
+      title: aboutContent.educationTitle, 
+      value: aboutContent.educationUniversity,
+      // DÜZELTİLDİ: 404 Hatasını önlemek için link '#' yapıldı.
+      link: '#', 
+    },
+    {
+      icon: <MapPin size={24} />,
+      title: contactContent.infoLocation,
+      value: contactContent.address,
+      link: '#',
+    },
+    {
+      icon: <Phone size={24} />,
+      title: 'Telefon', 
+      value: contactContent.phone,
+      link: `tel:${contactContent.phone}`,
+    },
+  ];
 
   return (
     <section className={`${isDark ? 'bg-dark' : 'bg-white'} py-20`}>
@@ -130,16 +159,10 @@ export function Contact({ isDark }: ContactProps) {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="space-y-4">
-              {/* contactContent.contactInfo üzerinden döngü yapılıyor */}
-              {contactContent.contactInfo.map((info, index) => {
-                // Dinamik İkon Bileşenini alıyoruz
-                const IconComponent = getIconComponent(info.iconType); 
-                
-                return (
+              {contactInfo.map((info, index) => (
                 <a
                   key={index}
-                  href={info.link} // Context'ten gelen linki kullanır
-                  // Harici link ise _blank, dahili ise _self (ya da # için _self)
+                  href={info.link}
                   target={info.link.startsWith('http') ? '_blank' : '_self'}
                   rel="noopener noreferrer"
                   className={`flex items-start gap-4 p-4 rounded-xl border transition-all hover:shadow-lg ${
@@ -151,8 +174,7 @@ export function Contact({ isDark }: ContactProps) {
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                     isDark ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100 text-blue-600'
                   }`}>
-                    {/* Dinamik İkon Bileşenini render ediyoruz */}
-                    <IconComponent size={24} />
+                    {info.icon}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className={`font-semibold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -163,7 +185,7 @@ export function Contact({ isDark }: ContactProps) {
                     </p>
                   </div>
                 </a>
-              )})}
+              ))}
             </div>
           </div>
 
@@ -181,13 +203,13 @@ export function Contact({ isDark }: ContactProps) {
 
               {/* GÜNCELLENMİŞ FORM ETİKETİ */}
               <form 
-                  name="contact" 
+                  name="contact" // Bu isim index.html'deki ile eşleşmeli
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field"
                   onSubmit={handleSubmit} 
                   className="space-y-4 md:space-y-6"
               >
-                {/* Netlify Hidden Field (zorunludur) */}
+                {/* KRİTİK: Netlify'ın formu tanıması için hidden form-name alanı */}
                 <input type="hidden" name="form-name" value="contact" />
                 
                 {/* Honeypot field (spam koruması için gizli alan) */}
@@ -208,7 +230,7 @@ export function Contact({ isDark }: ContactProps) {
                     </label>
                     <input
                       type="text"
-                      name="name"
+                      name="name" // KRİTİK: FormData state'i ve index.html ile eşleşmeli
                       value={formData.name}
                       onChange={handleChange}
                       // Dinamik Placeholder
@@ -230,7 +252,7 @@ export function Contact({ isDark }: ContactProps) {
                     </label>
                     <input
                       type="email"
-                      name="email"
+                      name="email" // KRİTİK
                       value={formData.email}
                       onChange={handleChange}
                       // Dinamik Placeholder
@@ -255,7 +277,7 @@ export function Contact({ isDark }: ContactProps) {
                   </label>
                   <input
                     type="text"
-                    name="subject"
+                    name="subject" // KRİTİK
                     value={formData.subject}
                     onChange={handleChange}
                     // Dinamik Placeholder
@@ -278,7 +300,7 @@ export function Contact({ isDark }: ContactProps) {
                     {contactContent.messageLabel} *
                   </label>
                   <textarea
-                    name="message"
+                    name="message" // KRİTİK
                     value={formData.message}
                     onChange={handleChange}
                     // Dinamik Placeholder
