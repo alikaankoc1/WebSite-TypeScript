@@ -392,7 +392,7 @@ const allTranslations = {
         infoLocation: 'Türkiye',
         formTitle: 'Bana Bir Mesaj Gönderin',
         nameLabel: 'Adınız Soyadınız',
-        emailLabel: 'Email Adresiniz',
+        emailLabel: 'Email Adres',
         subjectLabel: 'Konu',
         messageLabel: 'Mesaj',
         namePlaceholder: 'Adınız',
