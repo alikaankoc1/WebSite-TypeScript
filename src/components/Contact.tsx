@@ -129,12 +129,12 @@ export function Contact({ isDark }: ContactProps) {
       value: contactContent.address,
       link: '#',
     },
-    {
-      icon: <Phone size={24} />,
-      title: 'Telefon', 
-      value: contactContent.phone,
-      link: `tel:${contactContent.phone}`,
-    },
+    // {
+    //   icon: <Phone size={24} />,
+    //   title: 'Telefon', 
+    //   value: contactContent.phone,
+    //   link: `tel:${contactContent.phone}`,
+    // },
   ];
 
   return (
