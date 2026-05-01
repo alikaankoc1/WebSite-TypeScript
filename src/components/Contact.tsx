@@ -25,11 +25,7 @@ export function Contact({ isDark }: ContactProps) {
       [name]: value,
     }));
   };
-  const encode = (data: { [key: string]: string }) => {
-    return Object.keys(data)
-      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&");
-  }
+  const encode = (data: Record<string, string>) => new URLSearchParams(data).toString();
 
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -39,9 +35,10 @@ export function Contact({ isDark }: ContactProps) {
 
     setStatus('loading'); 
     const formName = "contact";
-    const dataToSend = {
+    const dataToSend: Record<string, string> = {
       "form-name": formName, 
-      ...formData 
+      "bot-field": "",
+      ...formData,
     };
 
     try {
@@ -57,20 +54,17 @@ export function Contact({ isDark }: ContactProps) {
             setStatus('success');
             // Formu temizle
             setFormData({ name: '', email: '', subject: '', message: '' }); 
+            setTimeout(() => setStatus('idle'), 4000);
         } else {
             setStatus('error');
-            console.error('Netlify Form Hatası:', response.statusText);
+            const errorText = await response.text();
+            console.error('Netlify Form Hatası:', response.status, response.statusText, errorText);
             alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.'); 
         }
     } catch (error) {
         setStatus('error');
         console.error('Ağ Hatası:', error);
         alert('Mesaj gönderilemedi: Lütfen internet bağlantınızı kontrol edin.');
-    }
-    if (status === 'success') { 
-        setTimeout(() => {
-            setStatus('idle');
-        }, 4000);
     }
   };
   
@@ -190,6 +184,8 @@ export function Contact({ isDark }: ContactProps) {
               {/* FORM ETİKETİ */}
               <form 
                   name="contact"
+                  method="POST"
+                  action="/"
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field"
                   onSubmit={handleSubmit} 
