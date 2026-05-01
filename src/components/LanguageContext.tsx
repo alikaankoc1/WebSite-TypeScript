@@ -207,7 +207,7 @@ const allTranslations = {
       contact: 'İletişim',
     },
     heroContent: {
-      greeting: 'Merhaba, benn',
+      greeting: 'Merhaba, ben',
       titleFirstName: 'Ali Kaan',
       titleLastName: 'Koç',
       titleProfession: 'Web Developer & Bilgisayar Mühendisliği Öğrencisi',
