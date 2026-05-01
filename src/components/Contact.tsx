@@ -132,7 +132,7 @@ export function Contact({ isDark }: ContactProps) {
               <form 
                   name="contact"
                   method="POST"
-                  action="/contact.html"
+                  action="/"
                   data-netlify="true" 
                   netlify
                   data-netlify-honeypot="bot-field"
