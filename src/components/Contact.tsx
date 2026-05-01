@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Github, Linkedin, MapPin, Send, GraduationCap, Phone } from 'lucide-react';
+import { Mail, Github, Linkedin, MapPin, Send, GraduationCap } from 'lucide-react';
 import { useLanguage } from './LanguageContext'; 
 
 interface ContactProps {
@@ -14,6 +14,7 @@ export function Contact({ isDark }: ContactProps) {
     subject: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -21,6 +22,45 @@ export function Contact({ isDark }: ContactProps) {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const encode = (data: Record<string, string>) => new URLSearchParams(data).toString();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'loading') return;
+
+    setStatus('loading');
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'contact',
+          ...formData,
+          'bot-field': '',
+        }),
+      });
+
+      if (!response.ok) {
+        setStatus('error');
+        return;
+      }
+
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setStatus('success');
+      setTimeout(() => setStatus('idle'), 3500);
+    } catch {
+      setStatus('error');
+    }
+  };
+
+  const getButtonText = () => {
+    if (status === 'loading') return 'Gönderiliyor...';
+    if (status === 'success') return 'Mesaj gönderildi';
+    if (status === 'error') return 'Tekrar dene';
+    return contactContent.submitButton;
   };
 
   const contactInfo = [
@@ -134,8 +174,8 @@ export function Contact({ isDark }: ContactProps) {
                   method="POST"
                   action="/"
                   data-netlify="true" 
-                  netlify
                   data-netlify-honeypot="bot-field"
+                  onSubmit={handleSubmit}
                   className="space-y-4 md:space-y-6"
               >
                 
@@ -245,11 +285,12 @@ export function Contact({ isDark }: ContactProps) {
                 {/* Submit Button */}
                 <button
                   type="submit"
+                  disabled={status === 'loading'}
                   className="w-full py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:-translate-y-1"
                 >
                   <Send size={18} />
                   {/* Dinamik Buton Metni */}
-                  {contactContent.submitButton} 
+                  {getButtonText()} 
                 </button>
               </form>
             </div>
