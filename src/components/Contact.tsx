@@ -15,65 +15,12 @@ export function Contact({ isDark }: ContactProps) {
     message: '',
   });
 
-  
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
-  };
-  const encode = (data: Record<string, string>) => new URLSearchParams(data).toString();
-
-  
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (status === 'loading') return; 
-
-    setStatus('loading'); 
-    const formName = "contact";
-    const dataToSend: Record<string, string> = {
-      "form-name": formName, 
-      "bot-field": "",
-      ...formData,
-    };
-
-    try {
-        const response = await fetch("/", {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/x-www-form-urlencoded' 
-            },
-            body: encode(dataToSend), 
-        });
-
-        if (response.ok) {
-            setStatus('success');
-            // Formu temizle
-            setFormData({ name: '', email: '', subject: '', message: '' }); 
-            setTimeout(() => setStatus('idle'), 4000);
-        } else {
-            setStatus('error');
-            const errorText = await response.text();
-            console.error('Netlify Form Hatası:', response.status, response.statusText, errorText);
-            alert('Mesaj gönderilemedi: Netlify Form servisinde bir hata oluştu.'); 
-        }
-    } catch (error) {
-        setStatus('error');
-        console.error('Ağ Hatası:', error);
-        alert('Mesaj gönderilemedi: Lütfen internet bağlantınızı kontrol edin.');
-    }
-  };
-  
-  
-  const getButtonText = () => {
-    if (status === 'loading') return 'Gönderiliyor...';
-    if (status === 'success') return 'Mesaj İletildi! ✅';
-    if (status === 'error') return 'Tekrar Dene ❌';
-    return contactContent.submitButton;
   };
 
   const contactInfo = [
@@ -185,11 +132,10 @@ export function Contact({ isDark }: ContactProps) {
               <form 
                   name="contact"
                   method="POST"
-                  action="/"
+                  action="/?form=contact-success"
                   data-netlify="true" 
                   netlify
                   data-netlify-honeypot="bot-field"
-                  onSubmit={handleSubmit} 
                   className="space-y-4 md:space-y-6"
               >
                 
@@ -299,18 +245,11 @@ export function Contact({ isDark }: ContactProps) {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={status === 'loading'} 
-                  className={`w-full py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
-                    status === 'success' 
-                      ? 'bg-green-500 text-white hover:shadow-lg hover:-translate-y-1'
-                      : status === 'error' 
-                      ? 'bg-red-500 text-white hover:shadow-lg hover:-translate-y-1'
-                      : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:-translate-y-1'
-                  }`}
+                  className="w-full py-3 px-6 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all duration-300 bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:shadow-lg hover:-translate-y-1"
                 >
                   <Send size={18} />
                   {/* Dinamik Buton Metni */}
-                  {getButtonText()} 
+                  {contactContent.submitButton} 
                 </button>
               </form>
             </div>
