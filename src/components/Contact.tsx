@@ -187,6 +187,7 @@ export function Contact({ isDark }: ContactProps) {
                   method="POST"
                   action="/"
                   data-netlify="true" 
+                  netlify
                   data-netlify-honeypot="bot-field"
                   onSubmit={handleSubmit} 
                   className="space-y-4 md:space-y-6"
@@ -195,7 +196,7 @@ export function Contact({ isDark }: ContactProps) {
                 <input type="hidden" name="form-name" value="contact" />
                 <p className="hidden">
                     <label>
-                        Don’t fill this out if you’re human: <input name="bot-field" onChange={handleChange} />
+                        Don’t fill this out if you’re human: <input name="bot-field" />
                     </label>
                 </p>
 
