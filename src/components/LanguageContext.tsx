@@ -1,5 +1,4 @@
 import { createContext, useState, useContext, ReactNode } from 'react';
-import { href } from 'react-router-dom';
 
 // --- TEMEL TİP TANIMLARI ---
 type Language = 'tr' | 'en';
@@ -822,8 +821,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const ctaContent = currentContent.ctaContent;
   const projectsContent = currentContent.projectsContent;
   const contactContent = currentContent.contactContent; 
-  const blogContent = (currentContent as any).blogContent; 
-  const experienceCardsContent = (currentContent as any).experienceCardsContent; 
+  const blogContent = currentContent.blogContent;
+  const experienceCardsContent = currentContent.experienceCardsContent; 
 
   return (
     <LanguageContext.Provider 
@@ -851,6 +850,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
 // --- HOOK ---
 
+// Context file exports both provider and hook; hook is not a component.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (context === undefined) {

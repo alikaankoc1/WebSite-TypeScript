@@ -1,4 +1,4 @@
-import { Navbar, Stats, About, Experiences, Certificates, Footer } from '../components';
+import { Navbar, About, Experiences, Certificates, Footer } from '../components';
 
 interface AboutPageProps {
   isDark: boolean;

@@ -2,11 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import { useLanguage } from './LanguageContext';
 import { Link } from 'react-router-dom'; 
 
-interface CTAProps {
-isDark: boolean;
-}
-
-export function CTA({ isDark }: CTAProps) {
+export function CTA() {
 const { ctaContent } = useLanguage();
 const { heading, subheading, buttonText } = ctaContent;
 

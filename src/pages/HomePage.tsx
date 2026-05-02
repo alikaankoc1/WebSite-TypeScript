@@ -13,7 +13,7 @@ export function HomePage({ isDark, setIsDark }: HomePageProps) {
         <Hero isDark={isDark} profileImage="/profile.jpg" />
         <Experience isDark={isDark} />
         <Stats isDark={isDark} />
-        <CTA isDark={isDark} />
+        <CTA />
         <Footer isDark={isDark} />
       </div>
     </div>
