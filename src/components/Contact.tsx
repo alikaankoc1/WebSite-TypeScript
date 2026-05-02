@@ -24,7 +24,13 @@ export function Contact({ isDark }: ContactProps) {
     }));
   };
 
-  const encode = (data: Record<string, string>) => new URLSearchParams(data).toString();
+  const contactEndpoint = (() => {
+    const base = import.meta.env.VITE_CONTACT_API_URL?.trim();
+    if (base) {
+      return `${base.replace(/\/$/, '')}/api/gonder`;
+    }
+    return '/api/gonder';
+  })();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,14 +39,10 @@ export function Contact({ isDark }: ContactProps) {
     setStatus('loading');
 
     try {
-      const response = await fetch('/', {
+      const response = await fetch(contactEndpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({
-          'form-name': 'contact',
-          ...formData,
-          'bot-field': '',
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
@@ -169,23 +171,7 @@ export function Contact({ isDark }: ContactProps) {
               </h3>
 
               {/* FORM ETİKETİ */}
-              <form 
-                  name="contact"
-                  method="POST"
-                  action="/"
-                  data-netlify="true" 
-                  data-netlify-honeypot="bot-field"
-                  onSubmit={handleSubmit}
-                  className="space-y-4 md:space-y-6"
-              >
-                
-                <input type="hidden" name="form-name" value="contact" />
-                <p className="hidden">
-                    <label>
-                        Don’t fill this out if you’re human: <input name="bot-field" />
-                    </label>
-                </p>
-
+              <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
                 {/* Name and Email Row */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   <div>
