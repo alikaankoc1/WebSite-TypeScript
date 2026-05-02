@@ -16,7 +16,8 @@ export function Projects({ isDark }: ProjectsProps) {
     filterLabels, 
     codeButton, 
     visitButton, 
-    noProjectsMessage, 
+    noProjectsMessage,
+    noImageLabel,
     projects 
   } = projectsContent;
 
@@ -82,7 +83,7 @@ export function Projects({ isDark }: ProjectsProps) {
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-700/50">
-                        <span className="text-sm font-medium text-gray-300">Resim Yok</span>
+                        <span className="text-sm font-medium text-gray-300">{noImageLabel}</span>
                     </div>
                   )}
                 </div>

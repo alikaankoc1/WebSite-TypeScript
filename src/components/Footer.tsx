@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../components/LanguageContext'; 
 
 export function Footer({ isDark }: { isDark: boolean }) {
-  const { navContent, footerContent } = useLanguage(); 
+  const { navContent, footerContent } = useLanguage();
+  const { tagline, quickLinks, socialSectionTitle, copyRight } = footerContent; 
   const navItems = [
     { label: navContent.home, href: '/' },
     { label: navContent.about, href: '/hakkimda' },
@@ -25,14 +26,14 @@ export function Footer({ isDark }: { isDark: boolean }) {
             </h3>
             {/* DİNAMİK METİN: Tagline */}
             <p className={`${isDark ? 'text-gray-400' : 'text-gray-300'}`}>
-              {footerContent.tagline} 
+              {tagline} 
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
             <h4 className={`font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-100'}`}>
-              {footerContent.quickLinks} 
+              {quickLinks} 
             </h4>
             <ul className="space-y-2">
       
@@ -55,7 +56,7 @@ export function Footer({ isDark }: { isDark: boolean }) {
           <div>
            
             <h4 className={`font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-100'}`}>
-              İletişim
+              {socialSectionTitle}
             </h4>
             <div className="flex gap-4">
           
@@ -102,7 +103,7 @@ export function Footer({ isDark }: { isDark: boolean }) {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             {/* DİNAMİK METİN: Copyright */}
             <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-              {footerContent.copyRight} 
+              {copyRight} 
             </p>
             {/* <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
               Geliştirici: Ali Kaan Koç

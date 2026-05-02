@@ -6,8 +6,16 @@ interface ContactProps {
   isDark: boolean;
 }
 
+const contactIconMap = {
+  Mail,
+  Github,
+  Linkedin,
+  MapPin,
+  GraduationCap,
+} as const;
+
 export function Contact({ isDark }: ContactProps) {
-  const { contactContent, aboutContent } = useLanguage(); 
+  const { contactContent } = useLanguage(); 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -59,52 +67,11 @@ export function Contact({ isDark }: ContactProps) {
   };
 
   const getButtonText = () => {
-    if (status === 'loading') return 'Gönderiliyor...';
-    if (status === 'success') return 'Mesaj gönderildi';
-    if (status === 'error') return 'Tekrar dene';
+    if (status === 'loading') return contactContent.formSending;
+    if (status === 'success') return contactContent.submittedMessage;
+    if (status === 'error') return contactContent.formRetry;
     return contactContent.submitButton;
   };
-
-  const contactInfo = [
-    
-    {
-      icon: <Mail size={24} />,
-      title: contactContent.emailLabel,
-      value: 'alikaansoftdev@gmail.com',
-      link: 'mailto:alikaansoftdev@gmail.com',
-    },
-    {
-      icon: <Github size={24} />,
-      title: 'GitHub',
-      value: 'github.com/alikaankoc1',
-      link: 'https://github.com/alikaankoc1',
-    },
-    {
-      icon: <Linkedin size={24} />,
-      title: 'LinkedIn',
-      value: 'linkedin.com/in/alikaankoc',
-      link: 'https://linkedin.com/in/alikaankoc',
-    },
-    {
-      icon: <GraduationCap size={24} />,
-     
-      title: aboutContent.educationTitle, 
-      value: aboutContent.educationUniversity,
-      link: '#', 
-    },
-    {
-      icon: <MapPin size={24} />,
-      title: contactContent.infoLocation,
-      value: contactContent.address,
-      link: '#',
-    },
-    // {
-    //   icon: <Phone size={24} />,
-    //   title: 'Telefon', 
-    //   value: contactContent.phone,
-    //   link: `tel:${contactContent.phone}`,
-    // },
-  ];
 
   return (
     <section className={`${isDark ? 'bg-dark' : 'bg-white'} py-20`}>
@@ -128,7 +95,9 @@ export function Contact({ isDark }: ContactProps) {
           {/* Contact Information */}
           <div className="lg:col-span-1">
             <div className="space-y-4">
-              {contactInfo.map((info, index) => (
+              {contactContent.contactInfo.map((info, index) => {
+                const Icon = contactIconMap[info.iconType];
+                return (
                 <a
                   key={index}
                   href={info.link}
@@ -143,7 +112,7 @@ export function Contact({ isDark }: ContactProps) {
                   <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                     isDark ? 'bg-blue-500/20 text-blue-400' : 'bg-blue-100 text-blue-600'
                   }`}>
-                    {info.icon}
+                    <Icon size={24} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className={`font-semibold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -154,7 +123,8 @@ export function Contact({ isDark }: ContactProps) {
                     </p>
                   </div>
                 </a>
-              ))}
+                );
+              })}
             </div>
           </div>
 

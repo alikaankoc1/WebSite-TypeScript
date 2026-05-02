@@ -57,6 +57,7 @@ interface HeroContent {
 interface FooterContent {
   tagline: string;
   quickLinks: string;
+  socialSectionTitle: string;
   copyRight: string;
 }
 
@@ -137,6 +138,7 @@ interface ProjectsContent {
   codeButton: string;
   visitButton: string;
   noProjectsMessage: string;
+  noImageLabel: string;
   projects: ProjectItem[];
 }
 
@@ -155,6 +157,8 @@ interface ContactContent {
     subjectPlaceholder: string;
     messagePlaceholder: string;
     submitButton: string;
+    formSending: string;
+    formRetry: string;
     submittedMessage: string;
     address: string;
     phone: string;
@@ -217,6 +221,7 @@ const allTranslations = {
     footerContent: { 
       tagline: 'Web Developer | Bilgisayar Mühendisliği Öğrencisi',
       quickLinks: 'Hızlı Bağlantılar',
+      socialSectionTitle: 'İletişim',
       copyRight: '© 2025 Ali Kaan Koç. Tüm Hakları Saklıdır.',
     },
     aboutContent: {
@@ -326,6 +331,7 @@ const allTranslations = {
       codeButton: 'Kod',
       visitButton: 'Ziyaret Et',
       noProjectsMessage: 'Henüz proje eklenmedi.',
+      noImageLabel: 'Resim yok',
       projects: [
         {
           id: 1,
@@ -399,6 +405,8 @@ const allTranslations = {
         subjectPlaceholder: 'Mesaj Konusu',
         messagePlaceholder: 'Mesajınızı buraya yazın...',
         submitButton: 'Mesaj Gönder',
+        formSending: 'Gönderiliyor...',
+        formRetry: 'Tekrar dene',
         submittedMessage: 'Mesaj Gönderildi! ✓',
         address: 'Kütahya, Türkiye',
         phone: '+90 5XX XXX XX XX',
@@ -521,6 +529,7 @@ const allTranslations = {
     footerContent: { 
       tagline: 'Web Developer | Computer Engineering Student',
       quickLinks: 'Quick Links',
+      socialSectionTitle: 'Contact',
       copyRight: '© 2025 Ali Kaan Koç. All Rights Reserved.',
     },
     aboutContent: {
@@ -629,6 +638,7 @@ const allTranslations = {
       codeButton: 'Code',
       visitButton: 'Visit',
       noProjectsMessage: 'No projects have been added yet.',
+      noImageLabel: 'No image',
       projects: [
         {
           id: 1,
@@ -701,6 +711,8 @@ const allTranslations = {
         subjectPlaceholder: 'Project Inquiry',
         messagePlaceholder: 'Write your message here...',
         submitButton: 'Send Message',
+        formSending: 'Sending...',
+        formRetry: 'Try again',
         submittedMessage: 'Message Sent! ✓',
         address: 'Kütahya, Turkey',
         phone: '+90 5XX XXX XX XX',
