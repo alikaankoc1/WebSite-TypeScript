@@ -28,10 +28,14 @@ const allowedOrigins = (process.env.ALLOWED_ORIGINS ||
 
 app.use(cors({
   origin: allowedOrigins,
-  methods: ['POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type'],
 }));
 app.use(express.json({ limit: '64kb' }));
+
+app.get('/health', (_req, res) => {
+  res.json({ ok: true, service: 'contact-api' });
+});
 
 const contactLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
