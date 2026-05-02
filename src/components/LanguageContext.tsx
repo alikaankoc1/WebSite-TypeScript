@@ -174,6 +174,12 @@ interface BlogContent {
   blogPosts: BlogPost[];
 }
 
+interface NotFoundContent {
+  title: string;
+  description: string;
+  homeLink: string;
+}
+
 
 // Tüm Context değerlerini tanımlayan ana arayüz
 interface LanguageContextType {
@@ -191,6 +197,7 @@ interface LanguageContextType {
   contactContent: ContactContent;
   blogContent: BlogContent;
   experienceCardsContent: ExperienceCardsContent; // <-- Experience.tsx için eklendi
+  notFoundContent: NotFoundContent;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -318,6 +325,11 @@ const allTranslations = {
       subheading: 'Projeleriniz için benimle iletişime geçebilirsiniz.',
       buttonText: 'İletişime Geçin',
       
+    },
+    notFoundContent: {
+      title: 'Sayfa bulunamadı',
+      description: 'Aradığınız sayfa mevcut değil veya taşınmış olabilir.',
+      homeLink: 'Ana sayfaya dön',
     },
     projectsContent: {
       sectionTitle: 'Projelerim',
@@ -626,6 +638,11 @@ const allTranslations = {
       subheading: 'Feel free to contact me for your projects.',
       buttonText: 'Get In Touch',
     },
+    notFoundContent: {
+      title: 'Page not found',
+      description: 'The page you are looking for does not exist or has been moved.',
+      homeLink: 'Back to home',
+    },
     projectsContent: {
       sectionTitle: 'My Projects',
       filterLabels: {
@@ -834,7 +851,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const projectsContent = currentContent.projectsContent;
   const contactContent = currentContent.contactContent; 
   const blogContent = currentContent.blogContent;
-  const experienceCardsContent = currentContent.experienceCardsContent; 
+  const experienceCardsContent = currentContent.experienceCardsContent;
+  const notFoundContent = currentContent.notFoundContent;
 
   return (
     <LanguageContext.Provider 
@@ -852,7 +870,8 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
         projectsContent,
         contactContent,
         blogContent,
-        experienceCardsContent 
+        experienceCardsContent,
+        notFoundContent,
       }}
     > 
       {children}

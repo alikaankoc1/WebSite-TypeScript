@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { HomePage, AboutPage, ProjectsPage, BlogPage, ContactPage } from './pages';
+import { HomePage, AboutPage, ProjectsPage, BlogPage, ContactPage, NotFoundPage } from './pages';
 import './App.css';
 
 // 1. ScrollToTop bileşenini components klasöründen import ediyoruz
@@ -23,6 +23,7 @@ function App() {
         <Route path="/projeler" element={<ProjectsPage isDark={isDark} setIsDark={setIsDark} />} />
         <Route path="/blog" element={<BlogPage isDark={isDark} setIsDark={setIsDark} />} />
         <Route path="/iletisim" element={<ContactPage isDark={isDark} setIsDark={setIsDark} />} />
+        <Route path="*" element={<NotFoundPage isDark={isDark} setIsDark={setIsDark} />} />
       </Routes>
     </Router>
   );
