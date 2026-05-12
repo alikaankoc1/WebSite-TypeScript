@@ -73,23 +73,25 @@ export function Projects({ isDark }: ProjectsProps) {
                   isDark ? 'bg-dark-secondary hover:shadow-blue-500/30' : 'bg-white hover:shadow-2xl'
                 }`}
               >
-                {/* Image */}
-                <div
-                  className={`w-full h-52 overflow-hidden rounded-t-2xl flex items-center justify-center ${
-                    isDark ? 'bg-zinc-900' : 'bg-gray-100'
-                  }`}
-                >
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="max-h-full w-full object-contain object-center p-2"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-700/50">
+                {/* Image — inset padding, görsel iç kutuyu tam kaplar */}
+                <div className={`px-3 pt-3 ${isDark ? 'bg-dark-secondary' : 'bg-white'}`}>
+                  <div
+                    className={`relative h-52 w-full overflow-hidden rounded-xl ${
+                      isDark ? 'bg-zinc-900' : 'bg-gray-100'
+                    }`}
+                  >
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 h-full w-full object-cover object-center"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-700/50">
                         <span className="text-sm font-medium text-gray-300">{noImageLabel}</span>
-                    </div>
-                  )}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Content */}
