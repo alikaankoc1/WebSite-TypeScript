@@ -361,6 +361,7 @@ const allTranslations = {
           description:
             'Kişiselleştirilmiş fizik tedavi önerilerinizi alın, sağlıklı yaşama ilk adımı atın. Uzman sistemimiz, sizin için en uygun tedavi programını oluşturacak.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/FTR-Simulasyon',
           link: 'https://ftr-simulasyon.vercel.app',
           image: '/ftr-simulasyon.png',
         },
@@ -370,6 +371,7 @@ const allTranslations = {
           description:
             'Fin Smart App, bakiyenizi risk seviyenize göre dağıtmanıza yardımcı olur. Giriş yapın veya üye olun; ardından tutarınızı girin, risk tercihinizi seçin.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/fin-smart-app',
           link: 'https://fin-smart-app-omega.vercel.app/#/login',
           image: '/fin-smart.png',
         },
@@ -396,6 +398,7 @@ const allTranslations = {
           title: 'DreamAI',
           description: 'Rüyanı yaz; yapay zeka sembolleri analiz eder, kategorize eder ve Gemini tabanlı derin bir yorum sunar.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/dream-ai',
           link: 'https://dream-ai-sandy.vercel.app/',
           image: '/dreamai.png',
         },
@@ -671,6 +674,7 @@ const allTranslations = {
           description:
             'Get personalized physical therapy recommendations and take the first step toward healthy living. Our expert system builds the most suitable treatment plan for you.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/FTR-Simulasyon',
           link: 'https://ftr-simulasyon.vercel.app',
           image: '/ftr-simulasyon.png',
         },
@@ -680,6 +684,7 @@ const allTranslations = {
           description:
             'Fin Smart App helps you allocate your balance according to your risk level. Log in or sign up, then enter your amount and choose your risk preference.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/fin-smart-app',
           link: 'https://fin-smart-app-omega.vercel.app/#/login',
           image: '/fin-smart.png',
         },
@@ -706,6 +711,7 @@ const allTranslations = {
           title: 'DreamAI',
           description: 'Write your dream; AI analyzes symbols, categorizes themes and emotions, and delivers a Gemini-powered interpretation.',
           category: 'Web',
+          github: 'https://github.com/alikaankoc1/dream-ai',
           link: 'https://dream-ai-sandy.vercel.app/',
           image: '/dreamai.png',
         },
