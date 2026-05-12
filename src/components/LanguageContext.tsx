@@ -366,12 +366,12 @@ const allTranslations = {
         },
         {
           id: 3,
-          title: 'Hava Durumu Uygulaması',
-          description: 'Gerçek zamanlı hava durumu verilerini gösteren mobil uyumlu uygulama.',
-          category: 'Mobile',
-          github: 'https://github.com/alikaankoc1/weather-app',
-          link: 'https://github.com/alikaankoc1',
-          image: "/weather.png" 
+          title: 'Fin Smart App',
+          description:
+            'Fin Smart App, bakiyenizi risk seviyenize göre dağıtmanıza yardımcı olur. Giriş yapın veya üye olun; ardından tutarınızı girin, risk tercihinizi seçin.',
+          category: 'Web',
+          link: 'https://fin-smart-app-omega.vercel.app/#/login',
+          image: '/fin-smart.png',
         },
         {
           id: 4,
@@ -676,12 +676,12 @@ const allTranslations = {
         },
         {
           id: 3,
-          title: 'Weather App',
-          description: 'A mobile-friendly application showing real-time weather data.',
-          category: 'Mobile',
-          github: 'https://github.com/alikaankoc1/weather-app',
-          link: 'https://github.com/alikaankoc1',
-          image: "/weather.png" 
+          title: 'Fin Smart App',
+          description:
+            'Fin Smart App helps you allocate your balance according to your risk level. Log in or sign up, then enter your amount and choose your risk preference.',
+          category: 'Web',
+          link: 'https://fin-smart-app-omega.vercel.app/#/login',
+          image: '/fin-smart.png',
         },
         {
           id: 4,
