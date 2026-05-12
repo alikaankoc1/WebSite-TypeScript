@@ -357,12 +357,12 @@ const allTranslations = {
         },
         {
           id: 2,
-          title: 'Bookify Kütüphane Uygulaması',
-          description: 'Kütüphane yönetimi uygulaması React ve Firebase ile oluşturulmuştur.',
+          title: 'FTR Tedavi Simülasyonu',
+          description:
+            'Kişiselleştirilmiş fizik tedavi önerilerinizi alın, sağlıklı yaşama ilk adımı atın. Uzman sistemimiz, sizin için en uygun tedavi programını oluşturacak.',
           category: 'Web',
-          github: 'https://github.com/alikaankoc1/bookify',
-          link: 'https://github.com/alikaankoc1',
-           image: "/kütüphane.png" 
+          link: 'https://ftr-simulasyon.vercel.app',
+          image: '/ftr-simulasyon.png',
         },
         {
           id: 3,
@@ -667,12 +667,12 @@ const allTranslations = {
         },
         {
           id: 2,
-          title: 'Bookify Library App',
-          description: 'Library management app size with React and Firebase.',
+          title: 'FTR Treatment Simulation',
+          description:
+            'Get personalized physical therapy recommendations and take the first step toward healthy living. Our expert system builds the most suitable treatment plan for you.',
           category: 'Web',
-          github: 'https://github.com/alikaankoc1/bookify',
-          link: 'https://github.com/alikaankoc1',
-          image: "/kütüphane.png" 
+          link: 'https://ftr-simulasyon.vercel.app',
+          image: '/ftr-simulasyon.png',
         },
         {
           id: 3,
