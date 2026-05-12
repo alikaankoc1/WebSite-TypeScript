@@ -74,12 +74,16 @@ export function Projects({ isDark }: ProjectsProps) {
                 }`}
               >
                 {/* Image */}
-                <div className="w-full h-52 overflow-hidden rounded-t-2xl bg-gray-200">
+                <div
+                  className={`w-full h-52 overflow-hidden rounded-t-2xl flex items-center justify-center ${
+                    isDark ? 'bg-zinc-900' : 'bg-gray-100'
+                  }`}
+                >
                   {project.image ? (
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="max-h-full w-full object-contain object-center p-2"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-gray-700/50">
