@@ -69,29 +69,29 @@ export function Projects({ isDark }: ProjectsProps) {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
-                className={`rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:scale-[1.02] ${
+                className={`min-w-0 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 transform hover:scale-[1.02] ${
                   isDark ? 'bg-dark-secondary hover:shadow-blue-500/30' : 'bg-white hover:shadow-2xl'
                 }`}
               >
-                {/* Image — inset padding, görsel iç kutuyu tam kaplar */}
-                <div className={`px-3 pt-3 ${isDark ? 'bg-dark-secondary' : 'bg-white'}`}>
-                  <div
-                    className={`relative h-52 w-full overflow-hidden rounded-xl ${
-                      isDark ? 'bg-zinc-900' : 'bg-gray-100'
-                    }`}
-                  >
-                    {project.image ? (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="absolute inset-0 h-full w-full object-cover object-center"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-700/50">
-                        <span className="text-sm font-medium text-gray-300">{noImageLabel}</span>
-                      </div>
-                    )}
-                  </div>
+                {/* Görsel: kart üstüne tam oturur, object-cover ile kırpılarak alanı doldurur */}
+                <div
+                  className={`relative h-52 w-full overflow-hidden ${
+                    isDark ? 'bg-zinc-950' : 'bg-gray-200'
+                  }`}
+                >
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 block h-full w-full object-cover object-center"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gray-700/50">
+                      <span className="text-sm font-medium text-gray-300">{noImageLabel}</span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Content */}
